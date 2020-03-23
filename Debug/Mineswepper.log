@@ -1,0 +1,13 @@
+﻿  MineswepperBoard.cpp
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(38,15): warning C4244: "argument": konwersja z "time_t" do "unsigned int", możliwa utrata danych
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(41,27): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(73,27): warning C4244: "inicjowanie": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(78,27): warning C4244: "inicjowanie": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(83,27): warning C4244: "inicjowanie": konwersja z "double" do "int", możliwa utrata danych
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(95,53): warning C4553: „==”: Wynik wyrażenia nie jest używany; czy chodziło Ci o „=”?
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(98,53): warning C4553: „==”: Wynik wyrażenia nie jest używany; czy chodziło Ci o „=”?
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(101,53): warning C4553: „==”: Wynik wyrażenia nie jest używany; czy chodziło Ci o „=”?
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(205): warning C4715: "MinesweeperBoard::hasFlag”: niewszystkie ścieżki kodu zwracają wartość
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(275): warning C4715: "MinesweeperBoard::getGameState”: niewszystkie ścieżki kodu zwracają wartość
+C:\Users\roboc\Desktop\Mineswepper\Mineswepper\MineswepperBoard.cpp(300): warning C4715: "MinesweeperBoard::getFieldInfo”: niewszystkie ścieżki kodu zwracają wartość
+  Mineswepper.vcxproj -> C:\Users\roboc\Desktop\Mineswepper\Debug\Mineswepper.exe
