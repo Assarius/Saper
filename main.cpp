@@ -1,18 +1,16 @@
-#include <iostream>
 #include "MineswepperBoard.h"
-#include <stdlib.h>
 #include "MSBoardTextView.h"
+#include "MSTextController.h"
+#include <iostream>
+#include <stdlib.h>
 
 
 int main() 
 {
     MinesweeperBoard board(10, 10, EASY); //szerokosc, wysokosc
     MSBoardTextView view (board);
-    view.display();
-    std::cin.get();
-    board.revealField(0, 5);
-    view.display();
-    std::cin.get();
+    MSTextController ctrl(board, view);
+    ctrl.play();
 
     return 0;
 }
