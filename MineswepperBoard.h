@@ -15,6 +15,7 @@ class MinesweeperBoard {
     int width;
     int height;
     bool move1 = true;
+    GameState state = RUNNING;
     int getGameMode();
 
     public:
