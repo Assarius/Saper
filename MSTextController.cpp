@@ -16,7 +16,7 @@ void MSTextController::play()
 	
 	while (board.getGameState() == 0)
 	{
-		board.debug_display();
+		//board.debug_display();
 		cout << "Maksymalna wspolrzedna x wynosi: " << board.getBoardWidth() << endl;
 		cout << "Maksymalna wspolrzedna y wynosi: " << board.getBoardHeight() << endl << endl;
 		view.display();
