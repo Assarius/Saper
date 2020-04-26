@@ -15,7 +15,8 @@ class MinesweeperBoard {
     int width;
     int height;
     bool move1 = true;
-    int getGameMode();
+    GameState state = RUNNING;
+    int getGameMode();    
 
     public:
     MinesweeperBoard(int x, int y, GameMode mode);
@@ -30,4 +31,6 @@ class MinesweeperBoard {
     void revealField(int x, int y);
     GameState getGameState()const;
     char getFieldInfo(int x, int y) const;
+    bool hasMine(int x, int y) const;
+    
 };

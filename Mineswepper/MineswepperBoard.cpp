@@ -5,6 +5,7 @@
 #include <vector>
 #include <stdlib.h>
 
+
 int mines_position_x(int width)
 {
     int x;
@@ -31,7 +32,6 @@ void level(int how_many_mines, int width, int height, std::vector<std::vector<Fi
         board.at(row).at(col).hasMine = true;
     }
 }
-
 
 MinesweeperBoard::MinesweeperBoard(int x, int y, GameMode mode) :width(x), height(y) {
 
@@ -130,7 +130,7 @@ void MinesweeperBoard::debug_display() const {
     std::cout << "Wysokosc planszy: " << getBoardHeight() << std::endl;
     std::cout << "Ilosc bomb: " << getMineCount() << std::endl;
     std::cout << "Status gry: " << getGameState() << std::endl;
-    //std::cin.get();
+  
     
 }
 
@@ -142,17 +142,21 @@ int MinesweeperBoard::getBoardHeight() const {
       return this->height;
 }
 
-int MinesweeperBoard::getMineCount() const {
+int MinesweeperBoard::getMineCount() const 
+{
     int how_many_mines = 0;
-    for (int row = 0; row < this->width; row++)
+    for (int row = 0; row < getBoardHeight() ;row++)
     {
-        for (int col = 0; col < this->height; col++)
+        for (int col = 0; col < getBoardWidth(); col++)
         {
-            if (this->board.at(row).at(col).hasMine==true)
+            if (this->board.at(row).at(col).hasMine == true)
                 how_many_mines++;
-            if (this->board.at(row).at(col).hasFlag == true)
+            else if (hasFlag(row,col) == true)
+                how_many_mines--;
+            if (this->board.at(row).at(col).hasMine == true && hasFlag(row,col) == true)
                 how_many_mines--;
         } 
+        if (how_many_mines == 0) {}
 
     }
     return how_many_mines;
@@ -168,7 +172,7 @@ int MinesweeperBoard::countMines(int row, int col) const
     if (row == this->width-1) row_around2 = row;
     if (col == this->height-1) col_around2 = col;
 
-    if (row < 0 || col < 0 || row >= this->width || col >= this->height)
+    if (row < 0 || col < 0 || row >= this->height || col >= this->width)
         return -1;
 
     else if (this->board.at(row).at(col).isRevealed == false)
@@ -185,19 +189,16 @@ int MinesweeperBoard::countMines(int row, int col) const
             }
         }
         return mines;
-        //if (this->board.at(row).at(col).hasMine == true)
-           /// return mines - 1;
-//else
-            //return mines;
     }
 }
 
 bool MinesweeperBoard::hasFlag(int row, int col) const
 {
+    
+    if (row<0 || col<0 || row>=this->height || col>=this->width)
+        return false;
     if (this->board.at(row).at(col).hasFlag == true)
         return true;
-    else if (row<0 || col<0 || row>=this->width || col>=this->height)
-        return false;
     else if (this->board.at(row).at(col).hasFlag == false)
         return false;
     else if (this->board.at(row).at(col).isRevealed==true)
@@ -206,6 +207,7 @@ bool MinesweeperBoard::hasFlag(int row, int col) const
 
 bool MinesweeperBoard::isRevealed(int row, int col) const
 {
+    if (row < 0 || col < 0 || row >= this->height || col >= this->width) {};
     if (this->board.at(row).at(col).isRevealed == true)
         return true;
     else return false;
@@ -213,31 +215,52 @@ bool MinesweeperBoard::isRevealed(int row, int col) const
 
 void MinesweeperBoard::toggleFlag(int row, int col)
 {
-    if (getGameState() != 0) {}
-    if (row<0 || col<0 || row>=this->width || col>=this->height) {}
-    if (this->board.at(row).at(col).isRevealed ==true) {}
-    if (this->board.at(row).at(col).isRevealed == false && this->board.at(row).at(col).hasFlag == false)
-        this->board.at(row).at(col).hasFlag = true;
-    else if (this->board.at(row).at(col).hasFlag == true)
-        this->board.at(row).at(col).hasFlag = false;
+    
+    if (getGameState() != 0) return;
+    if (getMineCount() == 0)
+        board.at(row).at(col).hasFlag = false;
+    else if (row<0 || col<0 || row>=width || col>=height) {}
+    else if (board.at(row).at(col).isRevealed ==true) {}
+    else if (board.at(row).at(col).isRevealed == false && board.at(row).at(col).hasFlag == false)
+    {
+        board.at(row).at(col).hasFlag = true;
+        move1 = false;
+    }
+        
+    else if (board.at(row).at(col).hasFlag == true)
+        board.at(row).at(col).hasFlag = false;
+
+   
 }
 
 void MinesweeperBoard::revealField(int row, int col)
 {
-    if (getGameState() != 0) {}
-    else if (row < 0 || col<0 || row >= this->width || col>=this->height) {}
-    else if (this->board.at(row).at(col).isRevealed == true) {}
-    else if (this->board.at(row).at(col).hasFlag == true) {}
+    if (getGameState() != RUNNING) {}
+    else if (row < 0 || col < 0 || row >= this->height || col >= this->width) return;
+    else if (this->board.at(row).at(col).isRevealed == true) return;
+    else if (this->board.at(row).at(col).hasFlag == true) return;
     else if (this->board.at(row).at(col).isRevealed == false && this->board.at(row).at(col).hasMine == false)
     {
-        this->board.at(row).at(col).isRevealed = true;
         move1 = false;
+        this->board.at(row).at(col).isRevealed = true;
+        if (countMines(row, col) != 0) return;
+
+        revealField(row - 1, col - 1);
+        revealField(row - 1, col);
+        revealField(row - 1, col + 1);
+        revealField(row, col - 1);
+        revealField(row, col + 1);
+        revealField(row + 1, col - 1);
+        revealField(row + 1, col);
+        revealField(row + 1, col + 1);
         
+
     }
-    else if (this->board.at(row).at(col).isRevealed == false && this->board.at(row).at(col).hasMine == true && getGameMode()!=0)
+    else if (this->board.at(row).at(col).isRevealed == false && this->board.at(row).at(col).hasMine == true)// && getGameMode()!=0)
     {
-        if (move1==true)
+        if (move1 == true)
         {
+            move1 = false;
             this->board.at(row).at(col).hasMine = false;
 
             int a = mines_position_x(this->width);
@@ -249,52 +272,71 @@ void MinesweeperBoard::revealField(int row, int col)
             }
             this->board.at(a).at(b).hasMine = true;
             this->board.at(row).at(col).isRevealed = true;
-            move1 = false;
+            
+            
         }
         else
-                this->board.at(row).at(col).isRevealed = true;
-    }
+        {
+            this->board.at(row).at(col).isRevealed = true;
+            move1 = false;
+        }
 
+
+    }
+  
 }
 
 GameState MinesweeperBoard::getGameState() const
 {
-    for (int row = 0; row < this->width; row++)
+    
+    int how_many_mines = 0;
+    for (int row = 0; row < this->height; row++)
     {
-        for (int col = 0; col < this->height; col++)
+        for (int col = 0; col < this->width; col++)
         {
-            if (this->board.at(row).at(col).hasMine == true && this->board.at(row).at(col).isRevealed == true)
+            
+            if (isRevealed(row, col) == true && this->board.at(row).at(col).hasMine == true)
                 return FINISHED_LOSS;
-            else if (this->board.at(row).at(col).hasMine == true && this->board.at(row).at(col).hasFlag == true && getMineCount()==0)
+            else if (hasFlag(row,col) == true && hasMine(row,col) == true && getMineCount() == 0)
                 return FINISHED_WIN;
-            else if (this->board.at(row).at(col).hasMine == true && this->board.at(row).at(col).isRevealed == false && getMineCount() == 0)
-                return FINISHED_WIN;            
-            else return RUNNING;
+                       
         }
     }
+    return RUNNING;
 }
 
 char MinesweeperBoard::getFieldInfo(int row, int col) const
 {    
-    if (row<0 || col<0 || row>=this->width || col>=this->height)
+    if (row<0 || col<0 || row>=this->height || col>=this->width)
         return '#';
     else 
     {
-        if (this->board.at(row).at(col).isRevealed == false && this->board.at(row).at(col).hasFlag == true)
-            return 'F';
-        if (this->board.at(row).at(col).isRevealed == false && this->board.at(row).at(col).hasFlag == false)
-            return '_';
-        if (this->board.at(row).at(col).isRevealed == true && this->board.at(row).at(col).hasMine == true)
+        if (isRevealed(row, col) == false && this->board.at(row).at(col).hasMine == true && getGameState()==FINISHED_LOSS)
             return 'x';
-        if (this->board.at(row).at(col).isRevealed == true && countMines(row, col) == 0)
+        if (isRevealed(row,col) == false && hasFlag(row,col) == true)
+            return 'F';
+        if (isRevealed(row, col) == false && hasFlag(row, col) == false)
+            return '_';
+        if (isRevealed(row, col) == true && this->board.at(row).at(col).hasMine == true)
+            return 'X';
+        if (isRevealed(row, col) == false && this->board.at(row).at(col).hasMine == true)
+            return 'x';
+        if (isRevealed(row, col) == true && countMines(row, col) == 0)
             return ' ';
-        if (this->board.at(row).at(col).isRevealed == true && countMines(row, col) != 0)
+        if (isRevealed(row, col) == true && countMines(row, col) != 0)
         {
             int x = (countMines(row, col));
             char ch = x;
             return ch+'0';
         }
-
-            
     }
 }
+
+bool MinesweeperBoard::hasMine(int x, int y) const
+{
+    if (board.at(x).at(y).hasMine==true)
+        return true;
+    else return false;
+}
+
+

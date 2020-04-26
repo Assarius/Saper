@@ -1,136 +1,40 @@
-﻿#include <iostream>
-#include "MineswepperBoard.h"
+﻿#include "MineswepperBoard.h"
+#include "MSBoardTextView.h"
+#include "MSTextController.h"
+#include "MSSFMLView.h"
+#include "MSSFMLEvents.h"
+#include <SFML/Graphics.hpp>
+#include <iostream>
 #include <stdlib.h>
-
-
-void test(MinesweeperBoard &game)
-{ 
-   /* game.debug_display();
-    std::cout << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;    
-    std::cin.get();
-    system("cls");
-
-    game.revealField(2, 4);
-    game.debug_display();
-    std::cout << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;   
-    std::cin.get();
-    system("cls");
-
-    game.toggleFlag(2, 1);
-    game.debug_display();
-    std::cout << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;   
-    std::cin.get();
-    system("cls");
-
-       
-    game.revealField(2, 1);
-    game.debug_display();
-    std::cout << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;   
-    std::cin.get();
-    system("cls");
-
-    
-    game.revealField(0, 0);
-    game.debug_display();
-    std::cout << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;    
-    std::cin.get();
-    system("cls");
-
-    
-    game.toggleFlag(2, 1);
-    game.debug_display();
-    std::cout << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;   
-    std::cin.get();
-    system("cls");
-
-    
-    game.revealField(2, 1);
-    game.debug_display();
-    std::cout << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;   
-    std::cin.get();
-    system("cls");    
-    std::cin.get(); */   
-
-    game.debug_display();
-    std::cout <<std::endl<< "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;
-    std::cin.get();
-    system("cls");
-    
-    game.revealField(0, 0);
-    game.toggleFlag(2, 1);
-    game.debug_display();
-    std::cout << std::endl << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;
-    std::cin.get();
-    system("cls");
-    
-    game.revealField(2, 1);
-    game.debug_display();
-    std::cout << std::endl << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;
-    std::cin.get();
-    system("cls");
-
-
-    game.toggleFlag(2, 1);
-    game.debug_display();
-    std::cout << std::endl << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;
-    std::cin.get();
-    system("cls");
-
-    game.revealField(2, 1);
-    game.debug_display();
-    std::cout << std::endl << "Czy pole (2,1) jest odkryte? " << game.isRevealed(2, 1) << std::endl;
-    std::cout << "Czy pole (2,1) ma falge? " << game.hasFlag(2, 1) << std::endl;
-    std::cout << "Ile min wokol pola (2,1)? " << game.countMines(2, 1) << std::endl;
-    std::cout << "Info o polu (2,1): " << game.getFieldInfo(2, 1) << std::endl;
-    std::cin.get(); 
-
-   /* game.debug_display();
-    std::cout << "Ile min wokol pola? " << game.countMines(9,1) << std::endl;
-    std::cout << game.getFieldInfo(1, 0);
-    std::cin.get();*/
-}
-
-    
 
 
 
 int main() 
 {
-    MinesweeperBoard game(10, 10, DEBUG); //szerokosc, wysokosc
-    test(game);
+    MinesweeperBoard board(10, 10, EASY);
+    sf::RenderWindow win(sf::VideoMode(8*50,8*50), "Saper");
+
+    win.setVerticalSyncEnabled(true);
+    win.setKeyRepeatEnabled(false);    
+    
+    MSSFMLView view(board);
+    MSSFMLEvents game(board, view);
+   
+   
+    while (win.isOpen())
+    {
+       // ctrl.play();
+        sf::Event event;
+        while (win.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                win.close();
+        }
+        
+        win.clear(); 
+        game.play(win);
+        win.display();                 
+        
+    }
     return 0;
 }
